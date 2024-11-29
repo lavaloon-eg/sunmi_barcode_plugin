@@ -13,15 +13,12 @@ enum KeyAction {
 
 /// Plugin that wraps Sunmi Android SDK for integrated barcode scanner
 class SunmiBarcodePlugin {
-  static const MethodChannel _channel =
-      const MethodChannel('hr.integrator.flutter_sunmi_barcode_scanner');
-  EventChannel _eventChannel =
-      const EventChannel('hr.integrator.flutter_sunmi_barcode_scanner/events');
+  static const MethodChannel _channel = const MethodChannel('hr.integrator.flutter_sunmi_barcode_scanner');
+  EventChannel _eventChannel = const EventChannel('hr.integrator.flutter_sunmi_barcode_scanner/events');
 
   /// Customize the trigger key
   void sendKeyEvent(KeyAction keyAction, int keyCode) async {
-    await _channel.invokeMethod(
-        'sendKeyEvent', {"key": keyAction.index, "code": keyCode});
+    await _channel.invokeMethod('sendKeyEvent', {"key": keyAction.index, "code": keyCode});
   }
 
   /// Start scanning
@@ -48,9 +45,8 @@ class SunmiBarcodePlugin {
   }
 
   /// Calls `getScannerModel` and returns true if it's greater than 100
-  Future<bool?> isScannerAvailable() async {
-    var model = (await _channel.invokeMethod('getScannerModel')).toInt();
-    print(model);
+  Future<bool> isScannerAvailable() async {
+    int model = (await _channel.invokeMethod('getScannerModel')).toInt();
     return (model > 100);
   }
 
@@ -58,12 +54,10 @@ class SunmiBarcodePlugin {
 
   /// Subscribe to this stream to receive barcode as string when it's scanned.
   /// Make sure to cancel subscription when you're done.
-  Stream<String?>? onBarcodeScanned() {
+  Stream<String?> onBarcodeScanned() {
     if (_onBarcodeScanned == null) {
-      _onBarcodeScanned = _eventChannel
-          .receiveBroadcastStream()
-          .map((dynamic event) => event as String?);
+      _onBarcodeScanned = _eventChannel.receiveBroadcastStream().map((dynamic event) => event as String?);
     }
-    return _onBarcodeScanned;
+    return _onBarcodeScanned!;
   }
 }

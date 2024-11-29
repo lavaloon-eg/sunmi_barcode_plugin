@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _modelVersion = 'Unknown';
+  String _scannedValue = '';
   var sunmiBarcodePlugin = SunmiBarcodePlugin();
 
   @override
@@ -22,7 +23,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     initPlatformState();
     sunmiBarcodePlugin.onBarcodeScanned().listen((event) {
-      print(event);
+      print("Scanned: " + event.toString());
+      setState(() { _scannedValue = event.toString(); });
     });
   }
 
@@ -62,7 +64,13 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Sunmi Barcode Plugin'),
         ),
         body: Center(
-          child: Text('Scanner model: $_modelVersion\n'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Scanner model: $_modelVersion\n'),
+              Text('Scanned value: $_scannedValue\n'),
+            ],
+          ),
         ),
       ),
     );
