@@ -34,3 +34,8 @@ var barcodeSubscription = sunmiPlugin.onBarcodeScanned().listen((event) {
 To scan programatically you can use `scan` and `stop` methods.
 
 If you don't have Sunmi device or just want to support more devices without implementing each SDK please check [flutter_barcode_listener](https://github.com/shaxxx/flutter_barcode_listener).
+
+## References
+
+https://developer.sunmi.com/docs/read/en-US/frmeghjk546
+https://sunmi-ota.oss-cn-hangzhou.aliyuncs.com/DOC/resource/re_cn/%E6%89%AB%E7%A0%81%E5%A4%B4/L2%20userguide_EN0731.pdf
